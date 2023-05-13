@@ -25,7 +25,7 @@ export const login = (payload, redirectUrl) => {
     dispatch(setError(null));
     dispatch(setLoading(true));
     axios({
-      url: `/sign-in`,
+      url: `users/sign-in`,
       method: "post",
       auth: {
         username: payload.correo,

@@ -77,7 +77,7 @@ function Login(props) {
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <FormControl style={{ width: "100%" }}>
+              <FormControl sx={{ width: "100%" }}>
                 <TextField
                   required
                   label="example@email.com"
@@ -99,7 +99,7 @@ function Login(props) {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <FormControl style={{ width: "100%" }}>
+              <FormControl sx={{ width: "100%" }}>
                 <TextField
                   required
                   label="Contraseña"
@@ -133,7 +133,10 @@ function Login(props) {
             </Button>
             <div>
               <p
-                onClick={() => props.history.push("/sign-up")}
+                onClick={() => {
+                  history.push("/sign-up");
+                  window.location.reload();
+                }}
                 style={{ ...useStylesMUI.classes__login_buttons_paragraph }}
               >
                 Registrarse

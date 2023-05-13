@@ -21,7 +21,7 @@ const App = () => {
         </Route>
         <Switch location={location} key={location.pathname}>
           <Route exact path="/sign-in" component={Login} />
-          <Route path="/sign-up" component={Signup} />
+          <Route exact path="/sign-up" component={Signup} />
         </Switch>
       </Switch>
     </BrowserRouter>
