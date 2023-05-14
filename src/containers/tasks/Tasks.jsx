@@ -5,10 +5,18 @@ import TaskCard from "../../components/TaskCard";
 import axios from "../../api";
 import Swal from "sweetalert2";
 import colors from "../../assets/styles/colors";
+import {
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 
 function Tasks(props) {
   const { user } = props;
   const [tasks, setTasks] = useState([]);
+  const [taskOpen, setTaskOpen] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -23,7 +31,10 @@ function Tasks(props) {
     });
   };
 
-  const setOpenTask = () => {};
+  const setOpenTask = (task) => {
+    setTaskOpen(task);
+    setOpenDialog(true);
+  };
 
   const deleteTask = async (id) => {
     Swal.fire({
@@ -68,6 +79,18 @@ function Tasks(props) {
           <h3>Aún no tienes tareas</h3>
         )}
       </div>
+      <Dialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        scroll="paper"
+      >
+        <DialogTitle id="scroll-dialog-title">{taskOpen?.titulo}</DialogTitle>
+        <DialogContent dividers={true}>
+          <DialogContentText id="scroll-dialog-description">
+            {taskOpen?.descripcion}
+          </DialogContentText>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

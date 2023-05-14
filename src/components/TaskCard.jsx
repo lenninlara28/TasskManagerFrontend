@@ -16,7 +16,7 @@ import { useHistory } from "react-router-dom";
 import { encrypt } from "../utils/crypt";
 
 function TaskCard(props) {
-  const { task, deleteTask } = props;
+  const { task, deleteTask, open } = props;
   const history = useHistory();
 
   return (
@@ -37,7 +37,7 @@ function TaskCard(props) {
         }}
       >
         <Tooltip title="Ver">
-          <IconButton>
+          <IconButton onClick={() => open(task)}>
             <VisibilityOutlinedIcon />
           </IconButton>
         </Tooltip>
