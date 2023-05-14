@@ -34,6 +34,7 @@ export const login = (payload, redirectUrl) => {
     })
       .then(({ data }) => {
         dispatch(loginRequest(data));
+        window.location.href = redirectUrl
       })
       .catch((error) => {
         dispatch(setLoading(false));

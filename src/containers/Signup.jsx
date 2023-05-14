@@ -117,7 +117,6 @@ function Login(props) {
             timer: 3000,
           }).then(() => {
             props.history.push("/sign-in");
-            window.location.reload();
           });
         }
       })
@@ -135,7 +134,7 @@ function Login(props) {
   return (
     <div style={{ ...useStylesMUI.container }}>
       <div>
-        <h1 style={{ textAlign: "center", marginBottom: "50px" }}>
+        <h1 style={{ textAlign: "center", marginBottom: "40px", marginTop: 0 }}>
           Registro de usuario
         </h1>
         <form onSubmit={handleSubmit}>
@@ -321,7 +320,6 @@ function Login(props) {
                 }}
                 onClick={() => {
                   props.history.push("/sign-in");
-                  window.location.reload();
                 }}
               >
                 Inicia sesión aquí.

@@ -15,7 +15,7 @@ import {
 
 function Login(props) {
   const [form, setForm] = useState({ correo: "" });
-  const { error, setError, user, history } = props;
+  const { error, setError, user, history, logoutRequest } = props;
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -43,12 +43,10 @@ function Login(props) {
   useEffect(() => {
     if (error) {
       Swal.fire({
-        customClass: {
-          confirmButton: "btn btn-primary",
-        },
         icon: "error",
         title: "Error",
         text: "Usuario incorrecto",
+        confirmButtonColor: colors.primary,
       }).then(() => {
         setError(null);
       });
@@ -65,14 +63,14 @@ function Login(props) {
 
   const handleSubmit = (e) => {
     e && e.preventDefault();
-    props.login(form);
+    props.login(form, "/dashboard");
   };
 
   return (
     <div style={{ ...useStylesMUI.container }}>
       <div>
         <h1 style={{ textAlign: "center", marginBottom: "50px" }}>
-          Iniciar Sessión
+          Iniciar Sesión
         </h1>
         <form onSubmit={handleSubmit}>
           <Grid container spacing={2}>
@@ -135,7 +133,6 @@ function Login(props) {
               <p
                 onClick={() => {
                   history.push("/sign-up");
-                  window.location.reload();
                 }}
                 style={{ ...useStylesMUI.classes__login_buttons_paragraph }}
               >

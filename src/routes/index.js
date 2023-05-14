@@ -9,6 +9,8 @@ import {
 
 import Login from "../containers/Login";
 import Signup from "../containers/Signup";
+import Dashboard from "../containers/Dashboard";
+import Tasks from "../containers/tasks/Tasks";
 
 const App = () => {
   const location = useLocation();
@@ -22,6 +24,9 @@ const App = () => {
         <Switch location={location} key={location.pathname}>
           <Route exact path="/sign-in" component={Login} />
           <Route exact path="/sign-up" component={Signup} />
+          <Dashboard>
+            <Route exact path="/dashboard" component={Tasks} />
+          </Dashboard>
         </Switch>
       </Switch>
     </BrowserRouter>
