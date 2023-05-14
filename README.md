@@ -19,7 +19,7 @@ Para ejecutar el proyecto, siga estos pasos:
 
 Abra una terminal y navegue hasta el directorio del proyecto. Ejecute el siguiente comando para iniciar el servidor de desarrollo:
 
-npm run dev
+npm start
 
 Abra su navegador y navegue a http://localhost:3000 para ver la aplicación en funcionamiento.
 
