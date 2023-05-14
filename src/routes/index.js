@@ -28,6 +28,7 @@ const App = () => {
           <Dashboard>
             <Route exact path="/dashboard" component={Tasks} />
             <Route exact path="/add-task" component={TasksCreate} />
+            <Route exact path="/edit-task/:id" component={TasksCreate} />
           </Dashboard>
         </Switch>
       </Switch>

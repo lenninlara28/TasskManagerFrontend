@@ -207,7 +207,6 @@ const useStylesMUI = {
 const mapStateToProps = (state) => {
   return {
     user: state.user,
-    styles: state.styles,
   };
 };
 

@@ -24,26 +24,28 @@ function Dashboard(props) {
       <Container maxWidth="false">
         <Switch>{children}</Switch>
       </Container>
-      <Fab
-        sx={{
-          position: "fixed",
-          bottom: 16,
-          right: 16,
-          backgroundColor: colors.primary,
-          "&:hover": {
-            backgroundColor: colors.secondary,
-          },
-        }}
-        aria-label="add"
-        onClick={() => history.push("/add-task")}
-      >
-        <AddIcon
+      {!window.location.href.includes("edit-task") && (
+        <Fab
           sx={{
-            color: colors.secondary,
-            "&:hover": { color: colors.primary },
+            position: "fixed",
+            bottom: 16,
+            right: 16,
+            backgroundColor: colors.primary,
+            "&:hover": {
+              backgroundColor: colors.secondary,
+            },
           }}
-        />
-      </Fab>
+          aria-label="add"
+          onClick={() => history.push("/add-task")}
+        >
+          <AddIcon
+            sx={{
+              color: colors.secondary,
+              "&:hover": { color: colors.primary },
+            }}
+          />
+        </Fab>
+      )}
     </>
   );
 }

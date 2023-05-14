@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 
 import TaskCard from "../../components/TaskCard";
 import axios from "../../api";
+import Swal from "sweetalert2";
+import colors from "../../assets/styles/colors";
 
 function Tasks(props) {
   const { user } = props;
@@ -16,12 +18,38 @@ function Tasks(props) {
   }, []);
 
   const getTasksUser = async (id) => {
-    await axios.post(`/tasks`, { id_usuarios: id }).then((res) => {
+    await axios.post(`/tasks`, { id_usuarios: id, estado: 1 }).then((res) => {
       setTasks(res.data.task);
     });
   };
 
   const setOpenTask = () => {};
+
+  const deleteTask = async (id) => {
+    Swal.fire({
+      text: "¿Está seguro que desea eliminar esta tarea?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: colors.primary,
+      confirmButtonText: "Si",
+      cancelButtonText: "Cancelar",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await axios.delete(`/tasks/${id}"`);
+        if (response.status === 200) {
+          Swal.fire({
+            icon: "success",
+            text: "Tarea eliminada con éxito",
+            showConfirmButton: false,
+            timer: 1000,
+          }).then(() => {
+            setTasks(tasks.filter((task) => task.id !== id));
+          });
+        }
+      }
+    });
+  };
 
   return (
     <>
@@ -29,7 +57,12 @@ function Tasks(props) {
       <div style={useStylesMUI.task}>
         {tasks.length > 0 ? (
           tasks.map((task, index) => (
-            <TaskCard key={`document${index}`} open={setOpenTask} task={task} />
+            <TaskCard
+              key={`${index}`}
+              open={setOpenTask}
+              deleteTask={deleteTask}
+              task={task}
+            />
           ))
         ) : (
           <h3>Aún no tienes tareas</h3>

@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import colors from "../../assets/styles/colors";
 import Swal from "sweetalert2";
+import { decrypt } from "../../utils/crypt";
 
 function CreateTask(props) {
   const { user } = props;
@@ -20,9 +21,34 @@ function CreateTask(props) {
 
   useEffect(() => {
     if (!user) props.history.push("/sign-in");
+    if (props.match.params.id) {
+      getTask();
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const getTask = async () => {
+    const id = decrypt(props.match.params.id);
+
+    const response = await axios.get(`/tasks/${id}`);
+    if (response.status === 200) {
+      setForm({
+        titulo: response.data.task.titulo,
+        descripcion: response.data.task.descripcion,
+      });
+    }
+
+    try {
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        text: "Ha ocurrido un error",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  };
 
   const handleInput = (event) => {
     setForm({
@@ -35,20 +61,39 @@ function CreateTask(props) {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("/tasks/new", {
-        ...form,
-        id_usuarios: user.data_user.id,
-      });
-      if (response.status === 201) {
-        setLoading(false);
-        Swal.fire({
-          icon: "success",
-          text: "Tareas Creada con éxito",
-          showConfirmButton: false,
-          timer: 2000,
-        }).then(() => {
-          props.history.push("/dashboard");
+      if (props.match.params.id) {
+        const id = decrypt(props.match.params.id);
+        const response = await axios.patch(`/tasks/${id}"`, {
+          ...form,
+          id_usuarios: user.data_user.id,
         });
+        if (response.status === 200) {
+          setLoading(false);
+          Swal.fire({
+            icon: "success",
+            text: "Tarea actualizada con éxito",
+            showConfirmButton: false,
+            timer: 2000,
+          }).then(() => {
+            props.history.push("/dashboard");
+          });
+        }
+      } else {
+        const response = await axios.post("/tasks/new", {
+          ...form,
+          id_usuarios: user.data_user.id,
+        });
+        if (response.status === 201) {
+          setLoading(false);
+          Swal.fire({
+            icon: "success",
+            text: "Tareas Creada con éxito",
+            showConfirmButton: false,
+            timer: 2000,
+          }).then(() => {
+            props.history.push("/dashboard");
+          });
+        }
       }
     } catch (error) {
       setLoading(false);
@@ -107,7 +152,7 @@ function CreateTask(props) {
                   color="primary"
                   type="submit"
                 >
-                  Crear
+                  {props.match.params.id ? "Actualizar" : "Crear"}
                 </Button>
               </FormControl>
             </Grid>
