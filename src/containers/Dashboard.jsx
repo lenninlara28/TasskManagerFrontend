@@ -35,6 +35,7 @@ function Dashboard(props) {
           },
         }}
         aria-label="add"
+        onClick={() => history.push("/add-task")}
       >
         <AddIcon
           sx={{

@@ -11,6 +11,7 @@ import Login from "../containers/Login";
 import Signup from "../containers/Signup";
 import Dashboard from "../containers/Dashboard";
 import Tasks from "../containers/tasks/Tasks";
+import TasksCreate from "../containers/tasks/CreateTask";
 
 const App = () => {
   const location = useLocation();
@@ -26,6 +27,7 @@ const App = () => {
           <Route exact path="/sign-up" component={Signup} />
           <Dashboard>
             <Route exact path="/dashboard" component={Tasks} />
+            <Route exact path="/add-task" component={TasksCreate} />
           </Dashboard>
         </Switch>
       </Switch>

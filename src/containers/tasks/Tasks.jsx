@@ -42,7 +42,7 @@ function Tasks(props) {
 const useStylesMUI = {
   task: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
     margin: "1px 30px 0px 30px",
   },
 };
